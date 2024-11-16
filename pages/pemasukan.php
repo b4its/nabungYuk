@@ -60,7 +60,7 @@
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="<?php echo $_SERVER['PHP_SELF'] ?>">Data Pemasukan</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Data Pengeluaran</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pengeluaran.php#tabungan">Data Pengeluaran</a></li>
               </ul>
             </div>
           </li>

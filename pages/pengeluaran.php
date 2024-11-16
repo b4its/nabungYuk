@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Nabung Yuk - Dashboard</title>
+  <title>Nabung Yuk - Pemasukan</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="../assets/vendors/feather/feather.css">
   <link rel="stylesheet" href="../assets/vendors/ti-icons/css/themify-icons.css">
@@ -46,21 +46,21 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="<?php echo $_SERVER['PHP_SELF'] ?>">
+            <a class="nav-link" href="dashboard.php">
               <i class="icon-grid menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#tabungan" aria-expanded="false" aria-controls="ui-basic">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="icon-layout menu-icon"></i>
               <span class="menu-title">Tabungan</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="tabungan">
+            <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="pemasukan.php#tabungan">Data Pemasukan</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pengeluaran.php#tabungan">Data Pengeluaran</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo $_SERVER['PHP_SELF'] ?>">Data Pengeluaran</a></li>
               </ul>
             </div>
           </li>
@@ -73,8 +73,8 @@
             </a>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../index.php"> Login </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html">Logout</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
               </ul>
             </div>
           </li>
@@ -85,7 +85,7 @@
       <div class="main-panel">
 
             <?php
-            $pages_dir='dashboard';
+            $pages_dir='pengeluaran';
 
             if (!empty($_GET['p'])) {
                 $pages = scandir($pages_dir);
@@ -99,7 +99,7 @@
                     echo 'Halaman Tidak dapat Ditemukan';
                 }
             } else {
-                include($pages_dir . '/halamanDashboard.php');
+                include($pages_dir . '/dataPengeluaran.php');
             }
           ?> 
           </div>
