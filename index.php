@@ -27,15 +27,15 @@
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
               <h2>Login</h2>
-              <form class="pt-3">
+              <form action="pages/authenticate/proses/prosesLogin.php" method="POST" class="pt-3">
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username">
+                  <input type="text" class="form-control form-control-lg" name="username" placeholder="Username">
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
+                  <input type="password" class="form-control form-control-lg" name="password" placeholder="Password">
                 </div>
                 <div class="mt-3">
-                  <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit">Login</button>
+                  <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit" name="login">Login</button>
                 </div>
                 <div class="text-center mt-4 font-weight-light">
                   Don't have an account? <a href="pages/authenticate/register.php" class="text-primary">Create</a>
@@ -56,6 +56,12 @@
   <!-- Plugin js for this page -->
   <!-- End plugin js for this page -->
   <!-- inject:js -->
+<script src="assets/js/jquery.js"></script>
+<script src="assets/vendors/sweetalert/sweetalert.min.js"></script>
+<?php
+//notifikasi
+include_once 'helper/messages.php';
+?>
   <script src="assets/js/off-canvas.js"></script>
   <script src="assets/js/hoverable-collapse.js"></script>
   <script src="assets/js/template.js"></script>

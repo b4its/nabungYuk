@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<?php 
+session_start();
+?>
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -68,13 +68,13 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
               <i class="icon-head menu-icon"></i>
-              <span class="menu-title">User Pages</span>
+              <span class="menu-title">Pengguna</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../index.php"> Login </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html">Logout</a></li>
+                <li class="nav-item"> <a class="nav-link" href="#"> <?php echo $_SESSION['username'] ?> </a></li>
+                <li class="nav-item"> <a class="nav-link" href="authenticate/proses/prosesLogout.php">Logout</a></li>
               </ul>
             </div>
           </li>
@@ -86,6 +86,49 @@
 
             <?php
             $pages_dir='dashboard';
+            include_once('../database/connection.php');
+            include_once('../helper/currency.php');
+            try {
+                // Query untuk mendapatkan nominal terakhir dari tabel saldo
+                $querySaldo = "SELECT nominal AS saldoAkhir FROM saldo where user = '". $_SESSION['idUser']."' ORDER BY created_at DESC LIMIT 1";
+                $resultSaldo = $db->query($querySaldo);
+            
+                // Query untuk menghitung total pemasukan
+                $queryPemasukan = "SELECT SUM(total) AS totalPemasukan FROM pemasukan where user = '". $_SESSION['idUser']."'";
+                $resultPemasukan = $db->query($queryPemasukan);
+
+                // Query untuk menghitung total pengeluaran
+                $queryPengeluaran = "SELECT SUM(total) AS totalPengeluaran FROM pengeluaran where user = '". $_SESSION['idUser']."'";
+                $resultPengeluaran = $db->query($queryPengeluaran);
+            
+                if ($resultSaldo && $resultSaldo->num_rows > 0) {
+                    $rowSaldo = $resultSaldo->fetch_assoc();
+                    $saldoAnda = $_SESSION['saldoTerakhir'] = $rowSaldo['saldoAkhir'];
+                    $cekSaldo = (int)$_SESSION['saldoTerakhir'];
+                } else {
+                    $_SESSION['saldoTerakhir'] = 0;
+                    $cekSaldo = 0;
+                }
+            
+                if ($resultPemasukan && $resultPemasukan->num_rows > 0) {
+                    $rowPemasukan = $resultPemasukan->fetch_assoc();
+                    $pemasukanSaya = $_SESSION['totalPemasukan'] = $rowPemasukan['totalPemasukan'];
+                } else {
+                    $_SESSION['totalPemasukan'] = 0;
+
+                }
+
+                if ($resultPengeluaran && $resultPengeluaran->num_rows > 0) {
+                    $rowPengeluaran = $resultPengeluaran->fetch_assoc();
+                    $pengeluaranSaya = $_SESSION['totalPengeluaran'] = $rowPengeluaran['totalPengeluaran'];
+                } else {
+                    $_SESSION['totalPengeluaran'] = 0;
+
+                }
+            
+            } catch (Exception $e) {
+                echo "Error: " . $e->getMessage();
+            }
 
             if (!empty($_GET['p'])) {
                 $pages = scandir($pages_dir);
@@ -120,7 +163,12 @@
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
-
+<script src="../assets/js/jquery.js"></script>
+<script src="../assets/vendors/sweetalert/sweetalert.min.js"></script>
+<?php
+//notifikasi
+include_once '../helper/messages.php';
+?>
   <!-- plugins:js -->
   <script src="../assets/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->

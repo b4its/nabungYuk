@@ -1,3 +1,11 @@
+<?php 
+session_start();
+
+$username = $_SESSION['username'];
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,13 +76,13 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
               <i class="icon-head menu-icon"></i>
-              <span class="menu-title">User Pages</span>
+              <span class="menu-title">Pengguna</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
+                <li class="nav-item"> <a class="nav-link" href="#"> <?php echo $username ?> </a></li>
+                <li class="nav-item"> <a class="nav-link" href="authenticate/proses/prosesLogout.php">Logout</a></li>
               </ul>
             </div>
           </li>
@@ -86,7 +94,7 @@
 
             <?php
             $pages_dir='pemasukan';
-
+            
             if (!empty($_GET['p'])) {
                 $pages = scandir($pages_dir);
                 unset($pages[0], $pages[1]);
@@ -120,7 +128,12 @@
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
-
+<script src="../assets/js/jquery.js"></script>
+<script src="../assets/vendors/sweetalert/sweetalert.min.js"></script>
+<?php
+//notifikasi
+include_once '../helper/messages.php';
+?>
   <!-- plugins:js -->
   <script src="../assets/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
